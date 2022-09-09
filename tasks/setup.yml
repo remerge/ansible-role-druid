@@ -1,0 +1,79 @@
+- name: Create directory for role configuration
+  file: path={{ druid_path }}/conf/druid/{{ druid_role }}/ state=directory mode=0755
+        owner={{ druid_user }}
+  become: true
+  vars:
+    druid_role: "{{ item }}"
+  loop: "{{ druid_roles }}"
+
+- name: set JVM config for {{ item }}
+  template:
+    src: "{{ item }}/jvm_config.j2"
+    dest: "{{ druid_path }}/conf/druid/{{ item }}/jvm.config"
+    owner: "{{ druid_user }}"
+    mode: 0755
+  vars:
+    druid_role: "{{ item }}"
+  loop: "{{ druid_roles }}"
+  become: true
+
+- name: set role specific configurations
+  template:
+    src: "{{ item }}/runtime.properties.j2"
+    dest: "{{ druid_path }}/conf/druid/{{ item }}/runtime.properties"
+    owner: "{{ druid_user }}"
+    mode: 0755
+  vars:
+    druid_role: "{{ item }}"
+  loop: "{{ druid_roles }}"
+  become: true
+
+- name: Create segment locations
+  file: path={{ item.path }} state=directory mode=0755
+        owner={{ druid_user }}
+  loop: "{{ druid_segmentCache_locations }}"
+
+
+- name: Create druid deploy directory
+  file: path={{ druid_path }}/conf/druid/_common/ state=directory mode=0755
+        owner={{ druid_user }}
+  become: true
+
+- name: set common configurations
+  template:
+    src: common.runtime.properties.j2
+    dest: "{{ druid_path }}/conf/druid/_common/common.runtime.properties"
+    owner: "{{ druid_user }}"
+    mode: 0755
+  become: true
+
+- name: set log configurations
+  template:
+    src: log4j2.xml.j2
+    dest: "{{ druid_path }}/conf/druid/_common/log4j2.xml"
+    owner: "{{ druid_user }}"
+    mode: 0755
+  become: true
+
+- name: Copy over systemd service file for druid role {{ druid_role }}
+  template:
+    src: druid_service.j2
+    dest: /lib/systemd/system/druid-{{ druid_role }}.service
+    owner: root
+    mode: 0644
+  become: true
+  vars:
+    druid_role: "{{ item }}"
+  loop: "{{ druid_roles }}"
+
+
+- name: Start druid {{ druid_role }} systemd service
+  systemd:
+    name: druid-{{ druid_role }}
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  become: true
+  vars:
+    druid_role: "{{ item }}"
+  loop: "{{ druid_roles }}"

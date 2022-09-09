@@ -1,0 +1,9 @@
+-server
+-Xmx{{ druid_broker_heap_size }}
+-Xms{{ druid_broker_heap_size }}
+-XX:MaxDirectMemorySize={{ druid_broker_max_direct_size }}
+"-XX:+ExitOnOutOfMemoryError"
+-Duser.timezone={{ druid_broker_timezone }}
+-Dfile.encoding={{ druid_broker_file_encoding }}
+-Djava.io.tmpdir={{ druid_broker_tmpdir }}
+-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager

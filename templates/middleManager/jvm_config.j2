@@ -1,0 +1,9 @@
+-server
+-Xmx{{ druid_indexer_heap_size }}
+-Xms{{ druid_indexer_heap_size }}
+-XX:MaxDirectMemorySize={{ druid_indexer_max_direct_size }}
+"-XX:+ExitOnOutOfMemoryError"
+-Duser.timezone={{ druid_indexer_timezone }}
+-Dfile.encoding={{ druid_indexer_file_encoding }}
+-Djava.io.tmpdir={{ druid_indexer_tmpdir }}
+-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager

@@ -1,0 +1,37 @@
+---
+- name: import assert.yml
+  ansible.builtin.import_tasks: assert.yml
+  run_once: true
+  delegate_to: localhost
+
+- name: Create druid user
+  user:
+    name: "{{ druid_user }}"
+    system: true
+
+- name: Create druid deploy directory
+  file: path={{ druid_deploy_directory }} state=directory mode=0755
+        owner={{ druid_user }}
+  become: true
+
+- name: Download Druid version {{ druid_version }}
+  get_url:
+    url: https://archive.apache.org/dist/druid/{{ druid_version }}/apache-druid-{{ druid_version }}-bin.tar.gz
+    dest: "{{ druid_deploy_directory }}/druid-{{ druid_version }}-bin.tar.gz"
+    checksum: sha512:{{ druid_checksum }}
+    mode: 0644
+
+- name: Un-tar druid download
+  unarchive:
+    src: "{{ druid_deploy_directory }}/druid-{{ druid_version }}-bin.tar.gz"
+    dest: "{{ druid_deploy_directory }}/"
+    copy: false
+    creates: "{{ druid_deploy_directory }}/druid-{{ druid_version }}"
+  become: true
+
+- name: Change ownership of download path
+  file: path={{ druid_deploy_directory }} owner={{ druid_user }} recurse=yes mode=0755
+  become: true
+
+- name: set configuration for role
+  ansible.builtin.include_tasks: setup.yml

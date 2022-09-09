@@ -1,0 +1,9 @@
+-server
+-Xmx{{ druid_router_heap_size }}
+-Xms{{ druid_router_heap_size }}
+-XX:MaxDirectMemorySize={{ druid_router_max_direct_size }}
+"-XX:+ExitOnOutOfMemoryError"
+-Duser.timezone={{ druid_router_timezone }}
+-Dfile.encoding={{ druid_router_file_encoding }}
+-Djava.io.tmpdir={{ druid_router_tmpdir }}
+-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager

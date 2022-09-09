@@ -1,0 +1,17 @@
+druid.service=druid/broker
+druid.host={{ druid_host }}
+druid.port={{ druid_broker_port }}
+
+# HTTP server threads
+druid.broker.http.numConnections={{ druid_broker_http_numConnections }}
+druid.server.http.numThreads={{ druid_broker_http_numThreads }}
+
+# Processing threads and buffers
+druid.processing.buffer.sizeBytes={{ druid_broker_processing_buffer_sizeBytes }}
+druid.processing.numThreads={{ druid_broker_processing_numThreads }}
+
+# Query cache (we use a small local cache)
+druid.broker.cache.useCache={{ druid_broker_cache_useCache }}
+druid.broker.cache.populateCache={{ druid_broker_cache_populateCache }}
+druid.cache.type={{ druid_broker_cache_type }}
+druid.cache.sizeInBytes={{ druid_broker_cache_sizeInBytes }}
