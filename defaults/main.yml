@@ -50,10 +50,10 @@ druid_broker_http_numConnections: 8
 druid_broker_http_numThreads: 5
 druid_broker_cache_useCache: true
 druid_broker_cache_populateCache: true
-druid_broker_cache_type: local
-druid_broker_cache_sizeInBytes: 1000000
+druid_broker_cache_type: caffeine
+druid_broker_cache_sizeInBytes: 10000000
 
-druid_worker_capacity: 4
+druid_worker_capacity: 2
 
 # historical
 druid_historical_num_http_threads: 60
@@ -63,14 +63,14 @@ druid_historical_file_encoding: "UTF-8"
 druid_historical_tmpdir: "/tmp/"
 # number of cores - 1
 druid_historical_num_threads: 2
-druid_segment_maxsize: 200MiB
+druid_segment_maxsize: 3g
 druid_historical_heap_size: 4g
 druid_historical_max_new_size: 2g
 druid_historical_max_direct_size: 10g
 druid_historical_server_tier: "_default_tier"
 druid_historical_processing_numThreads: 3
 druid_historical_processing_numMergeBuffers: 2
-druid_historical_processing_buffer_sizeBytes: 2500000
+druid_historical_processing_buffer_sizeBytes: 10000000
 druid_historical_cache_useCache: true
 druid_historical_cache_populateCache: true
 
@@ -121,7 +121,7 @@ druid_router_max_direct_size: 2g
 druid_router_timezone: "UTC"
 druid_router_file_encoding: "UTF-8"
 druid_router_tmpdir: "/tmp/"
-druid_router_http_numConnections: 50
+druid_router_http_numConnections: 20
 druid_router_http_readTimeout: PT5M
 druid_router_http_numMaxThreads: 100
 druid_server_http_numThreads: 100
