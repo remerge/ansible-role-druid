@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Olatunde Alex-Oni
+  role_name: ansible-druid-role
+  description: install ansible druid repository
+  license: BSD 3-Clause License
+  company: Remerge GmbH
+  min_ansible_version: "2.10"
+
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+    - name: Debian
+      versions:
+        - "bullseye"
