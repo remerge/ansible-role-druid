@@ -1,0 +1,2 @@
+---
+druid_path: "{{ druid_deploy_directory }}/apache-druid-{{ druid_version }}"

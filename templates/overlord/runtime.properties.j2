@@ -1,0 +1,22 @@
+druid.service=druid/overlord
+druid.host={{ druid_host }}
+druid.port={{ druid_overlord_port }}
+
+druid.indexer.queue.startDelay={{ druid_indexer_queue_startDelay }}
+
+# Run in remote mode
+druid.indexer.runner.type={{ druid_indexer_runner_type }}
+druid.indexer.runner.minWorkerVersion={{ druid_indexer_worker_version }}
+
+# Store all task state in the metadata storage
+druid.indexer.storage.type={{ druid_indexer_storage_type }}
+
+# Metrics
+druid.monitoring.monitors={{ druid_overlord_monitoring_monitors }}
+
+# task logging -- the task logging is configured in common properties
+# but task log cleanup is done by overlord, hence the cleanup config is present only on overlord
+#
+# enable purging of task logs, ie task log cleanup, after a specified period
+druid.indexer.logs.kill.enabled={{ druid_indexer_logs_kill_enabled }}
+druid.indexer.logs.kill.durationToRetain={{ druid_indexer_logs_kill_durationToRetain }}

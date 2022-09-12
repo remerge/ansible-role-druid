@@ -1,0 +1,22 @@
+druid.service=druid/middleManager
+druid.host={{ druid_host }}
+druid.plaintextPort={{ druid_middleManager_port }}
+
+# Number of tasks per middleManager
+druid.worker.capacity={{ druid_worker_capacity }}
+
+# HTTP server threads
+druid.server.http.numThreads={{ druid_indexer_num_http_threads }}
+
+# Task launch parameters
+druid.indexer.runner.javaCommand={{ druid_indexer_runner_javaCommand }}
+druid.indexer.runner.javaOptsArray={{ druid_indexer_runner_javaOptsArray }}
+druid.indexer.task.baseTaskDir={{ druid_indexer_task_baseTaskDir }}
+
+# Hadoop indexing
+druid.indexer.task.hadoopWorkingPath={{ druid_task_hadoopWorkingPath }}
+
+# Processing threads and buffers on Peons
+druid.processing.numMergeBuffers={{ druid_indexer_processing_numMergeBuffers }}
+druid.processing.buffer.sizeBytes={{ druid_indexer_processing_buffer_sizeBytes }}
+druid.processing.numThreads={{ druid_indexer_processing_numThreads }}

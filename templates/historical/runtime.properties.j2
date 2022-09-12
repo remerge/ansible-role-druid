@@ -1,0 +1,33 @@
+druid.service=druid/historical
+druid.host={{ druid_host }}
+druid.port={{ druid_historical_port }}
+
+
+# HTTP server threads
+druid.server.http.numThreads={{ druid_historical_num_http_threads }}
+
+# Segment storage
+druid.segmentCache.locations={{ druid_segmentCache_locations | to_json }}
+druid.server.maxSize={{ druid_segment_maxsize }}
+
+
+# Historical General Configuration
+druid.server.maxSize={{ druid_segment_maxsize }}
+druid.server.tier={{ druid_historical_server_tier }}
+
+
+# Processing
+druid.processing.numThreads={{ druid_historical_processing_numThreads }}
+druid.processing.numMergeBuffers={{ druid_historical_processing_numMergeBuffers }}
+druid.processing.buffer.sizeBytes={{ druid_historical_processing_buffer_sizeBytes }}
+
+# Cache
+druid.historical.cache.useCache={{ druid_historical_cache_useCache }}
+druid.historical.cache.populateCache={{ druid_historical_cache_populateCache }}
+
+# Metrics
+druid.monitoring.monitors={{ druid_monitoring_monitors }}
+
+# zookeeper connection timeout
+druid.zk.service.sessionTimeoutMs={{ druid_zk_service_sessionTimeoutMs }}
+druid.zk.service.connectionTimeoutMs={{ druid_zk_service_connectionTimeoutMs }}

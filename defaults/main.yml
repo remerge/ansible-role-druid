@@ -1,0 +1,156 @@
+---
+druid_user: druid
+druid_version: 0.21.1
+druid_checksum: a68c63ddf92a0939315bd8b79fbdd5fae712e888d1a0e0466f0a87a8e8f1270d70fc5dcc0ec64e076391576be29da1cce88f7c5cf725c31418601e4eee8fa354
+druid_deploy_directory: /opt/druid/
+druid_host: "{{ ansible_default_ipv4.address }}"
+
+# configuration
+druid_javascript_enabled: true
+
+druid_zk_service_sessionTimeoutMs: 60000
+druid_zk_service_connectionTimeoutMs: 20000
+
+druid_indexer_capacity: 4
+druid_processing_numThreads: "{{ ansible_processor_vcpus - 1 }}"
+druid_processing_numMergeBuffers: 2
+
+druid_processing_buffer_sizeBytes: 100000
+druid_segmentCache_locations:
+  - path: "/mnt/persistent/zk_druid"
+    maxSize: "3g"
+
+# logging
+druid_emitter: logging
+druid_emitter_configuration:
+  logging.logLevel=info
+
+#metrics
+druid_monitoring_monitors: '["org.apache.druid.client.cache.CacheMonitor", "org.apache.druid.server.metrics.HistoricalMetricsMonitor", "org.apache.druid.server.metrics.EventReceiverFirehoseMonitor", "org.apache.druid.server.metrics.QueryCountStatsMonitor"]'
+
+# ports
+druid_broker_port: 8082
+druid_coordinator_port: 8081
+druid_overlord_port: 8090
+druid_indexer_port: 8881
+druid_router_port: 8088
+druid_historical_port: 8083
+druid_middleManager_port: 8091
+
+# broker
+druid_broker_heap_size: 2g
+druid_broker_max_new_size: 1g
+druid_broker_max_direct_size: 2g
+druid_broker_timezone: "UTC"
+druid_broker_file_encoding: "UTF-8"
+druid_broker_tmpdir: "/tmp/"
+druid_broker_processing_buffer_sizeBytes: 1
+druid_broker_processing_numThreads: 2
+druid_broker_http_numConnections: 8
+druid_broker_http_numThreads: 5
+druid_broker_cache_useCache: true
+druid_broker_cache_populateCache: true
+druid_broker_cache_type: local
+druid_broker_cache_sizeInBytes: 1000000
+
+druid_worker_capacity: 4
+
+# historical
+druid_historical_num_http_threads: 60
+druid_historical_buffer_size: 50000000
+druid_historical_timezone: "UTC"
+druid_historical_file_encoding: "UTF-8"
+druid_historical_tmpdir: "/tmp/"
+# number of cores - 1
+druid_historical_num_threads: 2
+druid_segment_maxsize: 200MiB
+druid_historical_heap_size: 4g
+druid_historical_max_new_size: 2g
+druid_historical_max_direct_size: 10g
+druid_historical_server_tier: "_default_tier"
+druid_historical_processing_numThreads: 3
+druid_historical_processing_numMergeBuffers: 2
+druid_historical_processing_buffer_sizeBytes: 2500000
+druid_historical_cache_useCache: true
+druid_historical_cache_populateCache: true
+
+druid_mm_worker_capacity: 2
+druid_mm_java_opts_array: '["-server", "-Xmx8g", "-Xms4g", "-XX:+UseG1GC", "-XX:G1HeapRegionSize=16m", "-XX:MaxDirectMemorySize=10240g", "-XX:MaxGCPauseMillis=100", "-XX:+PrintGCDetails", "-XX:+PrintGCTimeStamps", "-XX:+PrintReferenceGC", "-XX:+PrintAdaptiveSizePolicy", "-XX:+ExitOnOutOfMemoryError", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8"]'
+
+# indexer / Middlemanager
+druid_task_hadoopWorkingPath: /tmp/druid/hadoop-tmp
+
+druid_indexer_heap_size: 2g
+druid_indexer_max_new_size: 1g
+druid_indexer_max_direct_size: 2g
+druid_indexer_logs_type: file
+druid_indexer_logs_s3Bucket:
+druid_indexer_logs_s3Prefix:
+druid_indexer_worker_version: 0
+druid_indexer_timezone: "UTC"
+druid_indexer_file_encoding: "UTF-8"
+druid_indexer_tmpdir: "/tmp/"
+druid_indexer_task_baseTaskDir: "/tmp/"
+druid_indexer_indexer_task_baseTaskDir: /tmp/druid/task
+druid_indexer_server_http_numThreads: 60
+druid_indexer_processing_numMergeBuffers: 2
+druid_indexer_processing_buffer_sizeBytes: 10000000
+druid_indexer_runner_javaCommand: /usr/bin/java
+druid_indexer_runner_javaOptsArray: '["-server", "-Xms1g", "-Xmx1g", "-XX:MaxDirectMemorySize=1g", "-Duser.timezone=UTC", "-Dfile.encoding=UTF-8", "-XX:+ExitOnOutOfMemoryError", "-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager"]'
+druid_indexer_processing_numThreads: 1
+druid_indexer_runner_type: remote
+druid_indexer_num_http_threads: 60
+druid_indexer_queue_startDelay: PT30S
+druid_indexer_storage_type: metadata
+
+# overlord
+druid_overlord_heap_size: 4g
+druid_overlord_max_new_size: 256m
+druid_overlord_max_direct_size: 2g
+druid_overlord_timezone: "UTC"
+druid_overlord_file_encoding: "UTF-8"
+druid_overlord_tmpdir: "/tmp/"
+druid_indexer_logs_kill_durationToRetain: 600000000
+druid_indexer_logs_kill_enabled: true
+druid_overlord_monitoring_monitors: '["org.apache.druid.client.cache.CacheMonitor","org.apache.druid.server.metrics.EventReceiverFirehoseMonitor"]'
+
+# router
+druid_router_heap_size: 4g
+druid_router_max_new_size: 256m
+druid_router_max_direct_size: 2g
+druid_router_timezone: "UTC"
+druid_router_file_encoding: "UTF-8"
+druid_router_tmpdir: "/tmp/"
+druid_router_http_numConnections: 50
+druid_router_http_readTimeout: PT5M
+druid_router_http_numMaxThreads: 100
+druid_server_http_numThreads: 100
+druid_router_defaultBrokerServiceName: druid/broker
+druid_router_coordinatorServiceName: druid/coordinator
+druid_router_managementProxy_enabled: true
+
+# coordinator
+druid_coordinator_heap_size: 4g
+druid_coordinator_max_new_size: 256m
+druid_coordinator_max_direct_size: 2g
+druid_coordinator_timezone: "UTC"
+druid_coordinator_file_encoding: "UTF-8"
+druid_coordinator_tmpdir: "/tmp/"
+druid_coordinator_startDelay: PT30S
+druid_coordinator_period: PT30S
+druid_coordinator_balancer_strategy: cachingCost
+
+
+# extensions
+druid_extensions:
+  # - druid-kafka-eight
+  # - druid-s3-extensions
+  - druid-hdfs-storage
+  - druid-histogram
+  - druid-datasketches
+  - postgresql-metadata-storage
+  - druid-kafka-indexing-service
+  - druid-avro-extensions
+  - druid-parquet-extensions
+  - druid-lookups-cached-global
+  # - druid-protobuf-extension

@@ -1,0 +1,32 @@
+---
+
+- name: test if druid_roles is set correctly
+  ansible.builtin.assert:
+    that:
+      - druid_roles is defined
+      - druid_roles is iterable
+      - druid_acceptable_roles is superset(druid_roles)
+    quiet: yes
+  vars:
+    druid_acceptable_roles: ["broker", "coordinator", "historical", "indexer", "middleManager", "overlord", "router"]
+
+- name: test if zk_host is set correctly
+  ansible.builtin.assert:
+    that:
+      - zk_host is defined
+      - zk_host is string
+    quiet: yes
+
+- name: test if pg_host is set correctly
+  ansible.builtin.assert:
+    that:
+      - pg_host is defined
+      - pg_host is string
+    quiet: yes
+
+- name: test if druid_metadata_password is set correctly
+  ansible.builtin.assert:
+    that:
+      - druid_metadata_password is defined
+      - druid_metadata_password is string
+    quiet: yes

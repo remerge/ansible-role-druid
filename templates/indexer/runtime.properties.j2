@@ -1,0 +1,20 @@
+druid.service=druid/indexer
+druid.host={{ druid_host }}
+druid.plaintextPort={{ druid_indexer_port }}
+
+# Number of tasks per indexer
+druid.worker.capacity={{ druid_worker_capacity }}
+
+# Task launch parameters
+druid.indexer.task.baseTaskDir={{ druid_indexer_indexer_task_baseTaskDir }}
+
+# HTTP server threads
+druid.server.http.numThreads={{ druid_indexer_num_http_threads }}
+
+# Processing threads and buffers on Indexer
+druid.processing.numMergeBuffers={{ druid_indexer_processing_numMergeBuffers }}
+druid.processing.buffer.sizeBytes={{ druid_indexer_processing_buffer_sizeBytes }}
+druid.processing.numThreads={{ druid_indexer_processing_numThreads }}
+
+# Hadoop indexing
+druid.indexer.task.hadoopWorkingPath={{ druid_task_hadoopWorkingPath }}
